@@ -86,7 +86,7 @@ class mycirclesegments():
         arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 40), radians(self.tturn + 80))
         arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 160), radians(self.tturn + 200))
         arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 280), radians(self.tturn + 320))
-        self.tturn -= self.tturninc
+        self.tturn += self.tturninc
         self.diameter += self.incdiameter
         if self.diameter > self.maxdiameter:
             self.diameter = self.mindiameter
@@ -128,7 +128,7 @@ class mytriangle():
     def drawTriangle(self):
         self.calculateFromAngle(self.tturn, self.tsize)
         triangle(self.x1,self.y1,self.x2,self.y2,self.x3,self.y3)
-        self.tturn -= self.tturninc
+        self.tturn += self.tturninc
 
 
 def setup():
@@ -146,7 +146,7 @@ def setup():
     circ = mycircle()
     circ.setOffsets(400,400)
     circ.setMaxDiameter(1200)
-    circ.setMinDiameter(50)
+    circ.setMinDiameter(100)
     circ.setIncDiameter(10)
     circ.setDiameter(400)
 

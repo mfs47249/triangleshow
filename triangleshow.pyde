@@ -31,6 +31,8 @@ class mycircle():
         self.diameter += self.incdiameter
         if self.diameter > self.maxdiameter:
             self.diameter = self.mindiameter
+        if self.diameter < self.mindiameter:
+            self.diameter = self.maxdiameter
 
 class mycirclesegments():
     x1 = 0.0
@@ -79,13 +81,17 @@ class mycirclesegments():
     def setTurnDegree(self, tphi):
         self.tturninc = tphi
 
-        def drawsegments(self):
+    def drawsegments(self):
         self.calculateFromAngle(self.tturn, self.tsize)
-        arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn), radians(self.tturn+45))
+        arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 40), radians(self.tturn + 80))
+        arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 160), radians(self.tturn + 200))
+        arc(self.xoffset, self.yoffset, self.diameter, self.diameter, radians(self.tturn + 280), radians(self.tturn + 320))
         self.tturn -= self.tturninc
         self.diameter += self.incdiameter
         if self.diameter > self.maxdiameter:
             self.diameter = self.mindiameter
+        if self.diameter < self.mindiameter:
+            self.diameter = self.maxdiameter
 
 
 class mytriangle():
@@ -107,14 +113,14 @@ class mytriangle():
         print ("Offset set to: (%d,%d)\n" % (self.xoffset, self.yoffset))
 
     def calculateFromAngle(self, phi, diameter):
-        self.x1 = sin(math.radians(phi)) * diameter + self.xoffset
-        self.y1 = cos(math.radians(phi)) * diameter + self.yoffset
+        self.x1 = cos(math.radians(phi)) * diameter + self.xoffset
+        self.y1 = sin(math.radians(phi)) * diameter + self.yoffset
         phi = phi + 120
-        self.x2 = sin(math.radians(phi)) * diameter + self.xoffset
-        self.y2 = cos(math.radians(phi)) * diameter + self.yoffset
+        self.x2 = cos(math.radians(phi)) * diameter + self.xoffset
+        self.y2 = sin(math.radians(phi)) * diameter + self.yoffset
         phi = phi + 120
-        self.x3 = sin(math.radians(phi)) * diameter + self.xoffset
-        self.y3 = cos(math.radians(phi)) * diameter + self.yoffset
+        self.x3 = cos(math.radians(phi)) * diameter + self.xoffset
+        self.y3 = sin(math.radians(phi)) * diameter + self.yoffset
 
     def setTurnDegree(self, tphi):
         self.tturninc = tphi
@@ -126,7 +132,7 @@ class mytriangle():
 
 
 def setup():
-    global tria, circ, circ1, circ2, segments
+    global tria, circ, circ1, circ2, segments, ball
 
     size (800,800)
     tria = mytriangle()
@@ -139,40 +145,34 @@ def setup():
 
     circ = mycircle()
     circ.setOffsets(400,400)
-    circ.setMaxDiameter(1000)
+    circ.setMaxDiameter(1200)
     circ.setMinDiameter(50)
-    circ.setIncDiameter(50)
-    diameter = 50
-    circ.setDiameter(diameter)
+    circ.setIncDiameter(10)
+    circ.setDiameter(400)
 
-    circ1 = copy.deepcopy(circ)
-    diameter += 200
-    circ1.setDiameter(diameter)
-    circ2 = copy.deepcopy(circ)
-    diameter += 200
-    circ2.setDiameter(diameter)
-    
+    ball = copy.deepcopy(circ)
+    ball.setMinDiameter(10)
+    ball.setMaxDiameter(50)
+    ball.setIncDiameter(-1)
 
     noFill()
     frameRate(25)
     stroke(255,0,0)
-    strokeWeight(10)
+    strokeWeight(5)
     strokeCap(ROUND)
 
 
 def draw():
     background(0)
+    noFill()
     stroke(128,128,128)
     tria.drawTriangle()
     stroke(255,0,0)
     circ.drawcircle()
     segments.drawsegments()
-    stroke(0,255,0)
-    circ1.drawcircle()
-    stroke(0,0,255)
-    circ2.drawcircle()
-
-
+    fill(255,0,0)
+    ball.drawcircle()
+    
 def draw_test():
     global counter, millitime
     if mousePressed:

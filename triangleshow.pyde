@@ -163,6 +163,8 @@ def setup():
 
 
 def draw():
+    global counter, millitime
+    millitime = millis()
     background(0)
     noFill()
     stroke(128,128,128)
@@ -172,16 +174,7 @@ def draw():
     segments.drawsegments()
     fill(255,0,0)
     ball.drawcircle()
-    
-def draw_test():
-    global counter, millitime
-    if mousePressed:
-        fill (0)
-    else:
-        fill (128)
-    ellipse (mouseX, mouseY, 50, 50)
-    outstring = "draw:%d time:%d" % (counter, millis() - millitime)
-    millitime = millis()
+    outstring = "Number:%d Milliseconds:%d" % (counter, millis() - millitime)
     print (outstring)
     counter += 1
 
